@@ -16,7 +16,27 @@
   box-shadow: var(--shadow);
   text-align: center;
 }
-
+.game_type {
+  width: min(980px, 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0px 0px;
+  margin: 0px;
+  background: linear-gradient(180deg, rgba(189,164,255,.1), rgba(154,213,255,.08));
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+.score {
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  width: min(700px, 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0px 0px;
+  margin: 0px;
+  background: linear-gradient(180deg, rgba(189,164,255,.2), rgba(154,213,255,.2));
+  box-shadow: var(--shadow);
+  text-align: center;
+}
 .headline {
   font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-size: clamp(28px, 4.6vw, 56px);
@@ -31,9 +51,25 @@
   transition: transform .06s ease, background .2s ease, border-color .2s ease;
 }
 .btn:hover { transform: translateY(-1px); border-color: #34345a; background: #16162a; }
-.btn-primary { background: linear-gradient(135deg, rgba(189,164,255,.25), rgba(154,213,255,.2)); border-color: #3a3960; }
+.btn-primary { background: linear-gradient(135deg, rgba(200,200,200,.1), rgba(200,200,200,.1)); color:#ffff; border-color: #3a3960; }
 .btn-ghost { background: #12121a; }
 
+.now-playing {
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  color: var(--muted);
+  font-size: clamp(14px, 1.8vw, 18px);
+  margin: 0 auto 28px;
+  line-height: 1.4;
+}
+.audio-player {
+    margin: 30px;
+    justify-content: center;
+
+}
+.audio-player audio {
+    width: 150px;
+    height: 50px;
+}
 
 /* Responsive */
 @media (max-width: 920px) {
@@ -45,3 +81,8 @@
   .app-root { grid-template-columns: 1fr; }
   .hero { padding: 56px 22px; }
 }
+@media (max-width: 640px){
+    .audio-player audio {
+        width: 100px;
+    }
+  }

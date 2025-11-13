@@ -14,7 +14,7 @@ export default function HomePage() {
           <div className="hero">
             <h1 className="headline">
               <span>Unleash Your Inner Music</span>
-              <br />
+              <br /> 
               <span className="accent">Maestro!</span>
             </h1>
 
