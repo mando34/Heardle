@@ -2,7 +2,7 @@ import Sidebar from "../components/sidebar";
 import Topbar from "../components/topbar";
 import "../css/home.css";
 
-export default function HomePage() {
+export default function HomePage({ onStart }) {
   return (
     <div className="app-root">
       <Sidebar />
@@ -24,7 +24,7 @@ export default function HomePage() {
             </p>
 
             <div className="cta-row">
-              <button className="btn btn-primary">Single Player</button>
+              <button className="btn btn-primary" onClick={onStart}>Single Player</button>
               <button className="btn btn-ghost">Multiplayer</button>
             </div>
           </div>
