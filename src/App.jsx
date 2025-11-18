@@ -1,7 +1,7 @@
 import "./css/global.css";
 import HomePage from "./pages/homepage";
 import GamePage from "./pages/gamepage";
-import Login from "./pages/login";            // <- your login page
+import SpotifyLogin from "./pages/spotifylogin";            // <- your login page
 import SpotifyCallback from "./pages/spotifycallback"; // <- you'll create this
 
 import {
@@ -24,21 +24,21 @@ function AppRoutes() {
           <HomePage
             onStart={() => {
               // when user presses "single player" or similar
-              navigate("/game");
+              navigate("/gamepage");
             }}
           />
         }
       />
 
       {/* Login: connect Spotify */}
-      <Route path="/login" element={<Login />} />
+      <Route path="/spotifylogin" element={<SpotifyLogin onExit={()=> navigate("/")}/>} />
 
       {/* Callback: Spotify redirects here with tokens */}
       <Route path="/callback" element={<SpotifyCallback />} />
 
       {/* Game page: your existing game component */}
       <Route
-        path="/game"
+        path="/gamepage"
         element={
           <GamePage
             onExit={() => {
@@ -54,9 +54,9 @@ function AppRoutes() {
 
 function App() {
   return (
-    <Router>
-      <AppRoutes />
-    </Router>
+      <Router>
+        <AppRoutes />
+      </Router>
   );
 }
 

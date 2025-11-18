@@ -3,6 +3,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/sidebar";
 import Topbar from "../components/topbar";
+import CustomAudioPlayer from "../components/customaudioplayer";
 import "../css/game.css";
 
 const BACKEND_URL = "http://127.0.0.1:8888";
@@ -19,7 +20,8 @@ export default function GamePage() {
   const navigate = useNavigate();
 
   // ✅ use the playlist that worked in DevTools
-  const playlistId = "5Fyh5hwRzSQpefBEQkKS2D";
+  const playlistId = "5Fyh5hwRzSQpefBEQkKS2D"; //https://open.spotify.com/playlist/3MSX420oh4ioV9oKp1JPT8?si=dbd1d5a73d0e481e
+                                              //remove from https to playlist/ & ?si to the end
 
   const guess = (event) => {
     setText(event.target.value);
@@ -36,7 +38,7 @@ export default function GamePage() {
     const expiresAtStr = localStorage.getItem("spotify_token_expires_at");
 
     if (!token || !expiresAtStr) {
-      navigate("/login");
+      navigate("/spotifylogin");
       return;
     }
 
@@ -47,7 +49,7 @@ export default function GamePage() {
       localStorage.removeItem("spotify_access_token");
       localStorage.removeItem("spotify_refresh_token");
       localStorage.removeItem("spotify_token_expires_at");
-      navigate("/login");
+      navigate("/spotifylogin");
       return;
     }
 
@@ -142,39 +144,43 @@ export default function GamePage() {
       <main className="main">
         <Topbar />
 
-        <section className="hero-wrap">
-          <div className="game_type">
-            <h1 className="headline">
-              <span>Single Player Game</span>
-            </h1>
-          </div>
-
-          <section className="hero-wrap">
-            <div className="score">
-              <h1 className="headline">
-                <p>
-                  <span>Score: {score}</span>
-                </p>
+        <section className="game-section">
+          <div className="game-wrap">
+            <div>
+              <h1 className="game-headline">
+                <span>Guess the Song</span>
               </h1>
             </div>
-          </section>
+            <div className="input-wrap">
+                <form onSubmit={submit}>
+                  <input className='guessinput' type="text" value={text} onChange={guess} placeholder="Type the song name..." />
+                  <button className="btn btn-primary guessbtn" type="submit"> Guess </button>
+                  <button className="btn btn-ghost skipbtn" onClick={fetchRandomTrack}> Skip </button>
+                </form>
+            </div>
+            <div className="game-score">
+              <h1 className="game-headline">
+                <span>Score: {score}</span>
+              </h1>
+            </div>
+          </div>
 
-          <section>
-            <div className="now-playing">Now Playing</div>
-            <div>Guess the song from the snippet!</div>
+          <section className="now-playing-section">
+            <div className="now-playing-img">
+              <img src="../../public/song_cover.png" alt="Song" width={300}/>
+            </div>
 
-            {error && <div className="error">{error}</div>}
+            {/* {error && <div className="error">{error}</div>} */}
 
-            {/* Debug: show which track + URL we currently have */}
+            {/* Debug: show which track + URL we currently have
             <div style={{ marginTop: "1rem", fontSize: "0.9rem" }}>
               <strong>Debug current track:</strong>{" "}
               {currentTrack ? currentTrack.name : "(none)"}
               <br />
               <strong>Preview URL:</strong>{" "}
               {previewUrl ? previewUrl : "(none)"}
-            </div>
-
-            <div className="audio" style={{ marginTop: "1rem" }}>
+            </div> */}
+            {/* <div className="now-playing-audio">
               {loading ? (
                 <p>Loading track...</p>
               ) : (
@@ -186,27 +192,11 @@ export default function GamePage() {
                   autoPlay
                 />
               )}
+            </div> */}
+            <div className="now-playing-audio">
+              <CustomAudioPlayer src={previewUrl || undefined} />
             </div>
           </section>
-
-          <section>
-            <div className="now-playing"> Your Guess</div>
-            <form onSubmit={submit}>
-              <input
-                type="text"
-                value={text}
-                onChange={guess}
-                placeholder="Type song title or artist."
-              />
-              <button className="btn btn-primary" type="submit">
-                Submit Guess
-              </button>
-            </form>
-          </section>
-
-          <button className="btn btn-ghost" onClick={fetchRandomTrack}>
-            Skip
-          </button>
         </section>
       </main>
     </div>

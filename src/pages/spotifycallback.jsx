@@ -1,4 +1,4 @@
-// src/pages/SpotifyCallback.jsx
+// src/pages/spotifycallback.jsx
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -13,21 +13,23 @@ export default function SpotifyCallback() {
     const expiresIn = params.get("expires_in");
 
     if (accessToken) {
-      // Store tokens in localStorage (simple approach)
       localStorage.setItem("spotify_access_token", accessToken);
       if (refreshToken) {
         localStorage.setItem("spotify_refresh_token", refreshToken);
       }
       if (expiresIn) {
         const expiryTime = Date.now() + Number(expiresIn) * 1000;
-        localStorage.setItem("spotify_token_expires_at", expiryTime.toString());
+        localStorage.setItem(
+          "spotify_token_expires_at",
+          expiryTime.toString()
+        );
       }
 
-      // Clear the query params from the URL (optional)
-      navigate("/game", { replace: true });
+      // ✅ Go straight to your game route
+      navigate("/", { replace: true });
     } else {
-      // If something went wrong, send them back to login
-      navigate("/login", { replace: true });
+      // ✅ If something broke, go back to login
+      navigate("/spotifylogin", { replace: true });
     }
   }, [navigate]);
 

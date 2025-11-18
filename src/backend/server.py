@@ -63,8 +63,8 @@ def index():
     return jsonify({"status": "ok", "message": "Spotify game backend is running"})
 
 
-@app.route("/login")
-def login():
+@app.route("/spotifylogin")
+def spotifylogin():
     """
     Step 1: Redirect the user to Spotify's Authorization page.
     The frontend should simply open /login in the browser.
