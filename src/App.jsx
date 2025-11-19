@@ -3,6 +3,7 @@ import { useState } from 'react'
 import HomePage from './pages/homepage';
 import LoginPage from './pages/loginPage';
 import CreateAcc from './pages/createAccPage';
+import Leaderboard from './pages/leaderboardPage';
 import "./css/global.css";  
 
 function App() {
@@ -11,7 +12,7 @@ function App() {
   return (
     <>
       
-      <LoginPage />
+      <Leaderboard />
     </>
   )
 }
