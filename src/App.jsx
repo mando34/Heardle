@@ -1,13 +1,13 @@
-function App() {
-import LoginPage from './pages/loginPage';
-import CreateAcc from './pages/createAccPage';
-import Leaderboard from './pages/leaderboardPage';
 import "./css/global.css";
 import HomePage from "./pages/homepage";
 import GamePage from "./pages/gamepage";
-import GameResults from './pages/game-results.jsx';
-import SpotifyLogin from "./pages/spotifylogin";            // <- your login page
-import SpotifyCallback from "./pages/spotifycallback"; // <- you'll create this
+import GameResults from "./pages/game-results";
+import LoginPage from './pages/loginPage';
+import CreateAcc from './pages/createAccPage';
+import ProfilePage from "./pages/profilepage";
+import Leaderboard from './pages/leaderboardPage';
+import SpotifyLogin from "./pages/spotifylogin";    
+import SpotifyCallback from "./pages/spotifycallback";
 
 import {
   BrowserRouter as Router,
@@ -35,11 +35,28 @@ function AppRoutes() {
         }
       />
 
+      <Route path="/game-results" element={<GamePage onExit={()=> navigate("/")}/>} />
+
       {/* Login: connect Spotify */}
       <Route path="/spotifylogin" element={<SpotifyLogin onExit={()=> navigate("/")}/>} />
 
       {/* Callback: Spotify redirects here with tokens */}
       <Route path="/callback" element={<SpotifyCallback />} />
+
+      <Route path="/loginPage" element={<LoginPage onExit={()=> navigate("/")}/>} />
+
+      <Route path="/createAccPage" element={<CreateAcc onExit={()=> navigate("/")}/>} />
+
+      <Route path="/leaderboardPage" element={<Leaderboard onExit={()=> navigate("/")}/>} />
+
+      <Route path="/profilePage" element={<ProfilePage onExit={()=> navigate("/")}/>} />
+
+      <Route
+        path="/createAccPage"
+        element={<CreateAcc onExit={() => navigate("/")} />}
+      />
+
+
 
       {/* Game page: your existing game component */}
       <Route
@@ -53,8 +70,6 @@ function AppRoutes() {
           />
         }
       />
-
-      <Route path="/spotifylogin" element={<SpotifyLogin onExit={()=> navigate("/")}/>} />
     </Routes>
   );
 }
