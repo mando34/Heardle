@@ -4,9 +4,6 @@ import { PlayIcon, SettingsIcon, UsersIcon } from "./icons";
 export default function Topbar() {
   return (
     <div className="topbar">
-      <div className="play-btn-wrap">
-        <button className="play-btn"> <PlayIcon/> <span>Play</span> </button>
-      </div>
       <div className="settings-btn-wrap">
         <button className="settings-btn">
           <SettingsIcon />
