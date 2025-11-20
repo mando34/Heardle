@@ -66,6 +66,7 @@
   background: #12121a; 
 }
 
+
 /* Responsive */
 @media (max-width: 920px) {
   .app-root { grid-template-columns: 80px 1fr; }
