@@ -6,8 +6,14 @@
 }
 
 /* Hero */
-.hero-wrap { display: grid; place-items: center; padding: 42px 20px; }
-.hero {
+.home-wrap { 
+  display: grid; 
+  place-items: center; 
+  padding: 42px 20px;
+  width: 100%;
+  height: 100%;
+}
+.home {
   width: min(980px, 100%);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -16,23 +22,49 @@
   box-shadow: var(--shadow);
   text-align: center;
 }
-
-.headline {
+.home-headline {
   font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-size: clamp(28px, 4.6vw, 56px);
-  line-height: 1.1; margin: 0 0 16px; letter-spacing: .5px;
+  line-height: 1.1; 
+  margin: 0 0 16px; 
+  letter-spacing: .5px;
 }
-.headline .accent { color: #cdb8ff; }
-.tagline { max-width: 760px; margin: 0 auto 28px; color: var(--muted); font-size: clamp(14px, 1.8vw, 18px); line-height: 1.6; }
-.cta-row { display: flex; gap: 14px; justify-content: center; }
+.home-headline .home-accent { 
+  color: #cdb8ff; 
+}
+.home-tagline { 
+  max-width: 760px; 
+  margin: 0 auto 28px; 
+  color: var(--muted); 
+  font-size: clamp(14px, 1.8vw, 18px); 
+  line-height: 1.6; 
+}
+.home-cta-row { 
+  display: flex; 
+  gap: 14px; 
+  justify-content: center; 
+}
 .btn {
-  border-radius: 12px; padding: 12px 18px; font-weight: 600; border: 1px solid var(--border);
-  cursor: pointer; background: #12121a; color: var(--text);
+  border-radius: 12px; 
+  padding: 12px 18px; 
+  font-weight: 600; 
+  border: 1px solid var(--border);
+  cursor: pointer; 
+  background: #12121a; 
+  color: var(--text);
   transition: transform .06s ease, background .2s ease, border-color .2s ease;
 }
-.btn:hover { transform: translateY(-1px); border-color: #34345a; background: #16162a; }
-.btn-primary { background: linear-gradient(135deg, rgba(189,164,255,.25), rgba(154,213,255,.2)); border-color: #3a3960; }
-.btn-ghost { background: #12121a; }
+.btn:hover { 
+  transform: translateY(-1px); 
+  border-color: #34345a; 
+  background: #16162a; 
+}
+.btn-primary { 
+  background: linear-gradient(135deg, rgba(189,164,255,.25), rgba(154,213,255,.2)); border-color: #3a3960; 
+}
+.btn-ghost { 
+  background: #12121a; 
+}
 
 
 /* Responsive */

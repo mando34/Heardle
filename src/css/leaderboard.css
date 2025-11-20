@@ -1,0 +1,200 @@
+/*bar are push foward to see*/
+.sidebar {
+  position: relative;
+  z-index: 9999;
+}
+
+.topbar {
+  width: 100vw;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+}
+
+/* layout */
+
+.appLayout {
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* detach cards from side bar and top bar to be center */
+
+.detachMain {
+  flex: 1;                     
+  display: flex;
+  justify-content: center;     
+  align-items: flex-start;     
+  padding: 90px 0 40px;        
+}
+
+/* Wrap */
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: min(520px, 90vw);
+}
+
+/* =========================
+   CARD
+   ========================= */
+
+.card {
+  background: #11111b;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+}
+
+/* title */
+
+.pageTitle {
+  margin: 0 0 8px;
+  text-align: center;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 22px;
+  color: #fff;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.cardSubtitle {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* leaderbaord table*/
+/* leaderbaord Scrollable*/
+.leaderboardTableWrap {
+  margin-top: 12px;
+  max-height: 250px;
+  overflow-y: auto;
+}
+ /*info for table*/
+.leaderboardTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.leaderboardTable thead th {
+  text-align: left;
+  padding: 10px 8px;
+  font-weight: 600;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+}
+
+.leaderboardTable tbody td {
+  padding: 10px 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+
+.leaderboardTable tbody tr:hover {
+  background: rgba(255,255,255,0.02);
+}
+
+.playerCell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/*profile icon */
+.avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #B197FC, #7C3AED);
+}
+
+.winrateCell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/*progess */
+.progress {
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background: #2D2942;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: #9A82F5;
+}
+
+/* History */
+.historyList {
+  list-style: none;
+  margin: 0;
+  padding: 6px 6px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.historyRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 4px;
+  border-bottom: 1px dashed rgba(148, 163, 184, 0.16);
+}
+
+.historyTitle {
+  margin: 0;
+  font-size: 13px;
+}
+
+.historyTime {
+  font-size: 11px;
+  color: var(--muted);
+}
+/*algins pts and win/lose*/
+.historyMeta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.historyScore {
+  font-weight: 600;
+}
+
+.historyPill {
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+
+.historyPillWin {
+  color: #4ade80;
+  background: rgba(22, 163, 74, 0.1);
+  border: 1px solid rgba(74, 222, 128, 0.35);
+}
+
+
+.historyPillLoss {
+  color: #fb7185;
+  background: rgba(127, 29, 29, 0.16);
+  border: 1px solid rgba(248, 113, 113, 0.35);
+}
