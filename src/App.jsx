@@ -1,9 +1,11 @@
+function App() {
 import LoginPage from './pages/loginPage';
 import CreateAcc from './pages/createAccPage';
 import Leaderboard from './pages/leaderboardPage';
 import "./css/global.css";
 import HomePage from "./pages/homepage";
 import GamePage from "./pages/gamepage";
+import GameResults from './pages/game-results.jsx';
 import SpotifyLogin from "./pages/spotifylogin";            // <- your login page
 import SpotifyCallback from "./pages/spotifycallback"; // <- you'll create this
 
