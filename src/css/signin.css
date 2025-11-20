@@ -1,0 +1,111 @@
+  /* Background */
+.signin-bg {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0D0B10; 
+  color: #EDE9FF;
+  overflow: hidden;
+}
+
+/* card background */
+.signin-card {
+  width: min(380px, 92vw);
+  background: #15121F;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+  padding: 32px 28px 28px;
+  text-align: center;
+}
+
+/* Top icon spot */
+.signinAvatar-spot {
+  height: 68px;
+  width: 68px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #FFFFFF; 
+}
+
+/* Login title */
+.signinTitle {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #FFFFFF;
+}
+
+/* Form layout */
+.signinForm {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: left;
+}
+/* Username/password */
+.signinLabel {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 2px;
+}
+
+/*textbox*/
+.signinInput {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #3A3550;
+  background: #26213A;
+  color: #fff8e9;
+  outline: none;
+  transition: border 0.2s ease, background 0.2s ease;
+}
+/* onClick textbox */
+.signinInput:focus {
+  border: 1px solid #B197FC;
+  background: #2D2942;
+}
+/* enter you username/password*/
+.signinInput::placeholder {
+  color: rgba(237, 233, 255, 0.6);
+}
+
+/* Buttons */
+.signinBtn-primary {
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px 0;
+  border: none;
+  border-radius: 8px;
+  background: #9A82F5; 
+  color: #FFFFFF;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+/* hover Big button */
+.signinBtn-primary:hover {
+  background: #9F85F7;
+}
+/* links */
+.signinBtn-link {
+  margin-top: 16px;
+  border: none;
+  background: transparent;
+  color: #B197FC;
+  font-size: 14px;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+/* links hover */
+.signinBtn-primary:hover {
+  background: #B197FC; 
+}
