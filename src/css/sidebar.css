@@ -8,23 +8,91 @@
 }
 
 .brand {
-  display: flex; align-items: center; gap: 10px; padding: 6px 8px; margin-bottom: 18px;
-  font-weight: 700; letter-spacing: .5px; font-size: 24px; color: #d8d1ff;
+  display: flex; 
+  align-items: center; 
+  gap: 10px; 
+  padding: 6px 8px; 
+  margin-bottom: 18px;
+  font-weight: 700; 
+  letter-spacing: .5px; 
+  font-size: 24px; 
+  color: #d8d1ff;
 }
 
-.nav { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
+.nav { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 15px; 
+  margin-top: 6px; 
+}
 
 .nav-btn {
-  display: flex; align-items: center; gap: 10px; width: 100%;
-  border: 1px solid var(--border); background: #12121a; color: var(--text);
-  padding: 10px 12px; border-radius: 12px; cursor: pointer; text-align: left;
+  display: flex; 
+  align-items: center; 
+  gap: 20px; 
+  width: 100%;
+  border: 1px solid var(--border); 
+  background: #12121a; 
+  color: var(--text);
+  padding: 10px 12px; 
+  border-radius: 12px; 
+  cursor: pointer; 
+  text-align: left;
   transition: transform .06s ease, border-color .2s ease, background .2s ease;
 }
-.nav-btn:hover { transform: translateY(-1px); border-color: #2f2f45; background: #151522; }
-.nav-btn.active { background: #17172a; border-color: #31315a; }
 
-.nav-icon { width: 18px; height: 18px; opacity: .9; }
-.nav-label { font-size: 14px; }
+.nav-btn:nth-child(4){
+  background-color: rgb(212, 63, 63);
+  margin-top: 240%;
+}
+.nav-btn:nth-child(4):hover{
+  border-color: rgb(212, 63, 63);
+}
+
+.nav-btn:hover { 
+  transform: translateY(-1px); 
+  border-color: #2f2f45; 
+  background: #151522; 
+}
+.nav-btn.active { 
+  background: #17172a; 
+  border-color: #31315a; 
+}
+
+.nav-icon { 
+  width: 18px; 
+  height: 18px; 
+  opacity: .9; 
+}
+.nav-label { 
+  font-size: 14px; 
+}
+
+/* Auth button: shared base tweaks */
+.auth-btn {
+  margin-top: auto; /* sticks it at the bottom of the sidebar if you want */
+}
+
+/* When in "Login" state */
+.auth-btn.auth-login {
+  background: #1db954;
+  color: #ffffff;
+}
+
+.auth-btn.auth-login:hover {
+  background: #1ed760;
+}
+
+/* When in "Logout" state */
+.auth-btn.auth-logout {
+  background: transparent;
+  color: #ff7676;
+  border: 1px solid #ff7676;
+}
+
+.auth-btn.auth-logout:hover {
+  background: rgba(255, 118, 118, 0.1);
+}
 
 /* Mobile sidebar compacts in globals (via grid change); if you want a top nav mode instead,
    you can convert this to a horizontal bar and reuse the same component. */
