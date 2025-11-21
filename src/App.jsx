@@ -20,6 +20,14 @@ import {
 function AppRoutes() {
   const navigate = useNavigate();
 
+  // added to ensure backend stats reset on new game start
+  const startGame = async () => {
+    await fetch("http://127.0.0.1:8888/reset", {
+      method: "POST",
+    });
+    navigate("/gamepage");
+  };
+
   return (
     <Routes>
       {/* Home: your existing homepage */}
@@ -27,15 +35,16 @@ function AppRoutes() {
         path="/"
         element={
           <HomePage
-            onStart={() => {
+            onStart={
               // when user presses "single player" or similar
-              navigate("/gamepage");
-            }}
+              startGame
+            }
           />
         }
       />
 
-      <Route path="/game-results" element={<GamePage onExit={()=> navigate("/")}/>} />
+      {/*<Route path="/game-results" element={<GamePage onExit={()=> navigate("/")}/>} />*/}
+      <Route path="/game-results" element={<GameResults onExit={() => navigate("/")}onStart={startGame}/>} />
 
       {/* Login: connect Spotify */}
       <Route path="/spotifylogin" element={<SpotifyLogin onExit={()=> navigate("/")}/>} />
@@ -47,9 +56,9 @@ function AppRoutes() {
 
       <Route path="/createAccPage" element={<CreateAcc onExit={()=> navigate("/")}/>} />
 
-      <Route path="/leaderboardPage" element={<Leaderboard onExit={()=> navigate("/")}/>} />
+      <Route path="/leaderboardPage" element={<Leaderboard onExit={()=> navigate("/")}onStart={startGame}/>} />
 
-      <Route path="/profilePage" element={<ProfilePage onExit={()=> navigate("/")}/>} />
+      <Route path="/profilePage" element={<ProfilePage onExit={()=> navigate("/")}onStart={startGame}/>} />
 
       <Route
         path="/createAccPage"
@@ -66,7 +75,9 @@ function AppRoutes() {
             onExit={() => {
               // when user wants to go back home
               navigate("/");
+              
             }}
+            onStart={startGame}
           />
         }
       />

@@ -4,7 +4,7 @@ import "../css/home.css";
 
 import { MusicNoteIcon, HomeIcon, PlayIcon, UsersIcon, TrophyIcon } from "../components/icons";
 
-export default function ProfilePage() {
+export default function ProfilePage({ onStart }) {
 
   const username = "MelodyMaster_X";
   const rank = 12;
@@ -13,7 +13,7 @@ export default function ProfilePage() {
 
   return (
     <div className="app-root">
-      <Sidebar />
+      <Sidebar onStart={onStart} />
 
       <main className="main" style={{ width: "100%" }}>
         <Topbar />

@@ -10,7 +10,7 @@ import {
 } from "./icons";
 import { useNavigate, useLocation } from "react-router-dom";
 
-export default function Sidebar() {
+export default function Sidebar({onStart}) {
   const navigate = useNavigate();
   const location = useLocation();
   const [loggedIn, setLoggedIn] = useState(false);
@@ -36,7 +36,11 @@ export default function Sidebar() {
 
   const handlePlay = () => {
     // your game route from App.jsx
-    navigate("/gamepage");
+    if (onStart) {
+      onStart(); // trggers the backend reset and navigates to gamepage
+    } else {
+      navigate("/gamepage"); // should not run - fallback
+    }
   };
 
   const handleLeaderboard = () => {

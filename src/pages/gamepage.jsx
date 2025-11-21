@@ -8,7 +8,7 @@ import "../css/game.css";
 
 const BACKEND_URL = "http://127.0.0.1:8888";
 
-export default function GamePage() {
+export default function GamePage({ onStart }) {
   const [score, setScore] = useState(0);
   const [text, setText] = useState("");
   const [currentTrack, setCurrentTrack] = useState(null);
@@ -16,6 +16,7 @@ export default function GamePage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [accessToken, setAccessToken] = useState(null);
+  const [attempts, setAttempts] = useState(0);
 
   const navigate = useNavigate();
 
@@ -27,9 +28,35 @@ export default function GamePage() {
     setText(event.target.value);
   };
 
-  const submit = (event) => {
+  // modified to test submission logic
+  const submit = async (event) => {
     event.preventDefault();
-    setScore((prev) => prev + 1);
+
+    //handle the guess
+    const res = await fetch(`${BACKEND_URL}/guess`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ 
+        guess: text,
+        correct_answer: currentTrack?.name || ""
+      }),
+    });
+
+    const result = await res.json();
+
+    // result returns {correct, attempts, game_over}
+    if (result.correct) {
+      setScore(prev => prev + 300);
+    }
+
+    setAttempts(result.attempts || 0);
+    if (result.game_over) {
+      console.log("Game ended");
+      navigate("/game-results");
+      return;
+    }
+    setScore(prev => prev + 1); // temporary score increment to test
+    setText("");
   };
 
   // ---- Helper: check token validity on mount ----
@@ -114,6 +141,7 @@ export default function GamePage() {
       console.log("Chosen track:", track.name, track.preview_url);
 
       setCurrentTrack(track);
+      setAttempts(0);
       setPreviewUrl(track.preview_url);
       setText("");
     } catch (err) {
@@ -139,7 +167,7 @@ export default function GamePage() {
 
   return (
     <div className="app-root">
-      <Sidebar />
+      <Sidebar onStart={onStart} />
 
       <main className="main">
         <Topbar />
