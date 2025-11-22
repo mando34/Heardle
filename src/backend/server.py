@@ -4,9 +4,11 @@ import secrets
 import urllib.parse
 
 from flask import Flask, redirect, request, session, jsonify
+from flask_cors import CORS
 import requests
 from dotenv import load_dotenv
 load_dotenv()
+from guess_checker import GuessChecker
 
 
 # ==========================
@@ -172,6 +174,26 @@ def refresh_token():
     token_data.setdefault("refresh_token", refresh_token)
 
     return jsonify(token_data)
+
+
+checker = GuessChecker()
+
+CORS(app, supports_credentials=True)
+@app.post("/guess")
+def api_guess():
+    data = request.get_json()
+    guess = data.get("guess", "")
+    correct_answer = data.get("correct_answer", "")
+    result = checker.check_guess(guess, correct_answer)
+    print(result)
+    return jsonify(result)
+
+@app.post("/reset")
+def reset_game():
+    global checker
+    checker = GuessChecker()
+    print("Game reset!")
+    return jsonify({"status": "reset"})
 
 
 if __name__ == "__main__":

@@ -3,7 +3,7 @@ import Topbar from "../components/topbar";
 import "../css/leaderboard.css";
 
 /* PLayer info*/
-export default function LeaderboardPage() {
+export default function LeaderboardPage({ onStart }) {
   const players = [
     { rank: 1, name: "Cristobal",    score: 15500, winRate: 0.88, avatarClass: "avatar-1" },
     { rank: 2, name: "Piccolo",      score: 67,    winRate: 0.5,  avatarClass: "avatar-1" },
@@ -72,7 +72,7 @@ export default function LeaderboardPage() {
   return (
     <>
       <div className="app-root">
-        <Sidebar />
+        <Sidebar onStart={onStart} />
           <main className="main">
             <Topbar />
               <section className="leaderboardWrap">

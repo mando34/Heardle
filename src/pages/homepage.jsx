@@ -5,7 +5,7 @@ import "../css/home.css";
 export default function HomePage({ onStart }) {
   return (
     <div className="app-root">
-      <Sidebar />
+      <Sidebar onStart={onStart} />
 
       <main className="main">
         <Topbar />

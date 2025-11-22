@@ -4,7 +4,7 @@ import Topbar from "../components/topbar";
 import "../css/game-results.css";
 import "../css/home.css"; // 👈 include this for consistent layout
 
-export default function GameResults() {
+export default function GameResults({ onStart, onExit }) {
   const standings = [
     { name: "Alice", score: 1500, correct: 8 },
     { name: "Bob", score: 1200, correct: 6 },
@@ -25,7 +25,7 @@ export default function GameResults() {
 
   return (
     <div className="app-root">
-      <Sidebar />
+      <Sidebar onStart={onStart} />
       <main className="main">
         <Topbar />
 
@@ -71,8 +71,8 @@ export default function GameResults() {
             </div>
 
             <div className="cta-row">
-              <button className="btn btn-primary">Play Again</button>
-              <button className="btn btn-ghost">Go to Home</button>
+              <button className="btn btn-primary"onClick={onStart}>Play Again</button>
+              <button className="btn btn-ghost" onClick={onExit}>Go to Home</button>
             </div>
           </div>
         </section>
