@@ -36,7 +36,12 @@ export default function Sidebar() {
 
   const handlePlay = () => {
     // your game route from App.jsx
-    navigate("/gamepage");
+    navigate("/gameselection");
+  };
+
+  const handleLeaderboard = () => {
+    // your game route from App.jsx
+    navigate("/leaderboardPage");
   };
 
   const handleAuthClick = () => {
@@ -79,7 +84,7 @@ export default function Sidebar() {
 
         <button
           className={`nav-btn ${isActive("/leaderboards") ? "active" : ""}`}
-          onClick={() => console.log("TODO: add /leaderboards route")}
+          onClick={handleLeaderboard}
         >
           <TrophyIcon className="nav-icon" />
           <span className="nav-label">Leaderboards</span>

@@ -6,6 +6,8 @@ import HomePage from "./pages/homepage";
 import GamePage from "./pages/gamepage";
 import SpotifyLogin from "./pages/spotifylogin";            // <- your login page
 import SpotifyCallback from "./pages/spotifycallback"; // <- you'll create this
+import GameSelectionPage from "./pages/gameselection";
+
 
 import {
   BrowserRouter as Router,
@@ -27,15 +29,22 @@ function AppRoutes() {
           <HomePage
             onStart={() => {
               // when user presses "single player" or similar
-              navigate("/gamepage");
+              navigate("/gameselection");
             }}
           />
         }
       />
-
-      {/* Login: connect Spotify */}
-      <Route path="/spotifylogin" element={<SpotifyLogin onExit={()=> navigate("/")}/>} />
-
+      <Route
+        path="/gameselection"
+        element={
+          <GameSelectionPage
+            onExit={() => {
+              navigate("/");
+            }}
+          />
+        }
+      />      
+      <Route path="/spotifylogin" element={<SpotifyLogin onExit={()=> navigate("/")}/>} /> 
       {/* Callback: Spotify redirects here with tokens */}
       <Route path="/callback" element={<SpotifyCallback />} />
 
