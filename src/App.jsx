@@ -35,7 +35,7 @@ function AppRoutes() {
         }
       />
 
-      <Route path="/game-results" element={<GamePage onExit={()=> navigate("/")}/>} />
+      <Route path="/game-results" element={<GameResults onExit={()=> navigate("/")}/>} />
 
       {/* Login: connect Spotify */}
       <Route path="/spotifylogin" element={<SpotifyLogin onExit={()=> navigate("/")}/>} />
