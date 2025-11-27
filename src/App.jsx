@@ -6,6 +6,7 @@ import LoginPage from './pages/loginPage';
 import CreateAcc from './pages/createAccPage';
 import ProfilePage from "./pages/profilePage";
 import Leaderboard from './pages/leaderboardPage';
+import GameSelectionPage from "./pages/gameselection";
 import SpotifyLogin from "./pages/spotifyLogin";    
 import SpotifyCallback from "./pages/spotifyCallback";
 
@@ -29,11 +30,12 @@ function AppRoutes() {
           <HomePage
             onStart={() => {
               // when user presses "single player" or similar
-              navigate("/gamepage");
+              navigate("/gameselection");
             }}
           />
         }
       />
+//       <Route path="/gameselection" element={ <GameSelectionPage onExit={() => { navigate("/"); }} /> } />      
 
       <Route path="/game-results" element={<GameResults onExit={()=> navigate("/")}/>} />
 

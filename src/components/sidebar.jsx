@@ -36,7 +36,12 @@ export default function Sidebar() {
 
   const handlePlay = () => {
     // your game route from App.jsx
-    navigate("/gamepage");
+    navigate("/gameselection");
+  };
+
+  const handleLeaderboard = () => {
+    // your game route from App.jsx
+    navigate("/leaderboardPage");
   };
 
   const handleLeaderboard = () => {
