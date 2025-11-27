@@ -1,0 +1,32 @@
+.results-grid {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.results-card {
+  background: #111119;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  width: 280px;
+  box-shadow: var(--shadow);
+  color: var(--text);
+}
+
+.results-card img {
+  width: 100%;
+  border-radius: 8px;
+  margin: 0.5rem 0;
+}
+
+.highlight {
+  color: var(--brand);
+  font-weight: bold;
+}
+
+.score {
+  color: var(--brand-2);
+}

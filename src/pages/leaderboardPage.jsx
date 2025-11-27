@@ -71,16 +71,13 @@ export default function LeaderboardPage() {
 
   return (
     <>
-      <Topbar />
-      <div className="appLayout">
+      <div className="app-root">
         <Sidebar />
-
-        
-          <main className="detachMain">
-            
-              <section className="wrap">
-
-                {/* leaderboard title */}
+          <main className="main">
+            <Topbar />
+              <section className="leaderboardWrap">
+                <div className="leaderboard">
+                  {/* leaderboard title */}
                 <h1 className="pageTitle">Leaderboard</h1>
 
                 {/* leaderboard cardd */}
@@ -128,6 +125,8 @@ export default function LeaderboardPage() {
                   </ul>
                 </section>
 
+                </div>
+                
               </section>
             </main>
         

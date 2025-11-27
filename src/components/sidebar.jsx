@@ -44,6 +44,11 @@ export default function Sidebar() {
     navigate("/leaderboardPage");
   };
 
+  const handleLeaderboard = () => {
+    // your game route from App.jsx
+    navigate("/leaderboardPage");
+  };
+
   const handleAuthClick = () => {
     if (loggedIn) {
       // 🔴 LOG OUT: clear tokens and go home
