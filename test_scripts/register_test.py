@@ -1,15 +1,17 @@
 import base64
 import requests
 
+# Tests Register logic
+
 url = "http://127.0.0.1:5000/register"
 
-username = "Mauricio"
-password = "mypassword123"
+email = "memayorga@miners.utep.edu"
+password = "password123"
 
 encoded_pw = base64.b64encode(password.encode("utf-8")).decode("utf-8")
 
 data = {
-    "username": username,
+    "email": email,
     "password": encoded_pw
 }
 

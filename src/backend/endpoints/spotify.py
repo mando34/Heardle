@@ -3,11 +3,12 @@ import base64
 import secrets
 import urllib.parse
 
-from flask import Flask, redirect, request, session, jsonify
+from flask import Flask, redirect, request, session, jsonify, Blueprint
 import requests
 from dotenv import load_dotenv
 load_dotenv()
 
+spotify_bp = Blueprint("spotify", __name__)
 
 # ==========================
 # CONFIGURATION
@@ -21,7 +22,7 @@ SPOTIFY_CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET", "YOUR_SPOTIFY_CLIENT_
 # e.g. http://localhost:5000/callback
 SPOTIFY_REDIRECT_URI = os.getenv(
     "SPOTIFY_REDIRECT_URI",
-    "http://127.0.0.1:5000/callback"
+    "http://127.0.0.1:8888/callback"
 )
 
 # Your React app URL (where the user will end up after login)
@@ -38,10 +39,10 @@ SPOTIFY_SCOPES = "user-read-email"  # you can add more if needed
 # FLASK APP SETUP
 # ==========================
 
-app = Flask(__name__)
+#app = Flask(__name__)
 
 
-app.secret_key = os.getenv("FLASK_SECRET_KEY", "super-secret-dev-key")  # change in production
+#current_app.secret_key = os.getenv("FLASK_SECRET_KEY", "super-secret-dev-key")  # change in production
 
 
 def get_basic_auth_header():
@@ -58,12 +59,12 @@ def get_basic_auth_header():
 # ROUTES
 # ==========================
 
-@app.route("/")
+@spotify_bp.route("/")
 def index():
     return jsonify({"status": "ok", "message": "Spotify game backend is running"})
 
 
-@app.route("/spotifylogin")
+@spotify_bp.route("/spotifylogin")
 def spotifylogin():
     """
     Step 1: Redirect the user to Spotify's Authorization page.
@@ -85,7 +86,7 @@ def spotifylogin():
     return redirect(url)
 
 
-@app.route("/callback")
+@spotify_bp.route("/callback")
 def callback():
     """
     Step 2: Spotify redirects here with ?code=...&state=...
@@ -142,7 +143,7 @@ def callback():
     return redirect(frontend_redirect_url)
 
 
-@app.route("/refresh_token")
+@spotify_bp.route("/refresh_token")
 def refresh_token():
     """
     Step 3 (optional): The frontend can call /refresh_token?refresh_token=...
@@ -174,7 +175,7 @@ def refresh_token():
     return jsonify(token_data)
 
 
-if __name__ == "__main__":
-    # For local dev only
-    app.run(host="0.0.0.0", port=8888, debug=True)
+# if __name__ == "__main__":
+#     # For local dev only
+#     app.run(host="0.0.0.0", port=8888, debug=True)
 
