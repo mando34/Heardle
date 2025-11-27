@@ -1,4 +1,5 @@
 import "./css/global.css";
+import { AuthProvider } from "./context/AuthContext";
 import HomePage from "./pages/homePage";
 import GamePage from "./pages/gamePage";
 import GameResults from "./pages/gameResultsPage";
@@ -30,57 +31,48 @@ function AppRoutes() {
           <HomePage
             onStart={() => {
               // when user presses "single player" or similar
-              navigate("/gameselection");
+              navigate("/gameSelection");
             }}
           />
         }
       />
-//       <Route path="/gameselection" element={ <GameSelectionPage onExit={() => { navigate("/"); }} /> } />      
+      {/* Genre/Difficulty Page */}
+      <Route path="/gameSelection" element={ <GameSelectionPage onExit={() => { navigate("/"); }} /> } />      
 
-      <Route path="/game-results" element={<GameResults onExit={()=> navigate("/")}/>} />
+      {/* Resulst Page */}
+      <Route path="/gameResults" element={<GameResults onExit={()=> navigate("/")}/>} />
 
-      {/* Login: connect Spotify */}
+      {/* Spotify Login Page*/}
       <Route path="/spotifylogin" element={<SpotifyLogin onExit={()=> navigate("/")}/>} />
 
       {/* Callback: Spotify redirects here with tokens */}
       <Route path="/callback" element={<SpotifyCallback />} />
 
+      {/* Login Page */}
       <Route path="/loginPage" element={<LoginPage onExit={()=> navigate("/")}/>} />
 
+      {/* Create Account Page */}
       <Route path="/createAccPage" element={<CreateAcc onExit={()=> navigate("/")}/>} />
 
+      {/* Leaderboard Page */}
       <Route path="/leaderboardPage" element={<Leaderboard onExit={()=> navigate("/")}/>} />
 
+      {/* Profile Page */}
       <Route path="/profilePage" element={<ProfilePage onExit={()=> navigate("/")}/>} />
 
-      <Route
-        path="/createAccPage"
-        element={<CreateAcc onExit={() => navigate("/")} />}
-      />
-
-
-
-      {/* Game page: your existing game component */}
-      <Route
-        path="/gamepage"
-        element={
-          <GamePage
-            onExit={() => {
-              // when user wants to go back home
-              navigate("/");
-            }}
-          />
-        }
-      />
+      {/* Main Game Page */}
+      <Route path="/gamePage" element={<GamePage onExit={() => {navigate("/");}} />}/>
     </Routes>
   );
 }
 
 function App() {
   return (
+    <AuthProvider>
       <Router>
         <AppRoutes />
       </Router>
+    </AuthProvider>
   );
 }
 

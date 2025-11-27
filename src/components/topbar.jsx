@@ -1,17 +1,22 @@
 // src/components/topbar.jsx
 import { SettingsIcon, UsersIcon } from "./icons";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 export default function Topbar() {
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
 
-  const goToCreateAccount = () => {
-    navigate("/createAccPage"); // 👈 this path already exists in App.jsx
+  const goToProfilePage = () => {
+    navigate("/profilePage");
   };
 
-  // you can later wire Settings to something else if you want
+  const goToCreateAccount = () => {
+    navigate("/createAccPage");
+  };
+
   const goToSettings = () => {
-    // navigate("/settings"); // when you add a settings route
     console.log("Settings clicked");
   };
 
@@ -23,9 +28,19 @@ export default function Topbar() {
         </button>
       </div>
       <div className="avatar-btn-wrap">
-        <button className="avatar-btn" onClick={goToCreateAccount}>
-          <UsersIcon />
-        </button>
+        {user ? (
+          <button 
+            className="avatar-btn logged-in" 
+            onClick={goToProfilePage} 
+            title={`Logged in as ${user.email}`}
+          >
+            <UsersIcon />
+          </button>
+        ) : (
+          <button className="avatar-btn" onClick={goToCreateAccount}>
+            <UsersIcon />
+          </button>
+        )}
       </div>
     </div>
   );

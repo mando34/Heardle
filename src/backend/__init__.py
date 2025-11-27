@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 from dotenv import load_dotenv
 import os
 from src.backend.endpoints.auth import auth_bp
@@ -13,6 +14,10 @@ def create_app():
     # Secret Key
     app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
     app.secret_key = os.getenv("FLASK_SECRET_KEY")
+
+    # Enable CORS for the frontend during development
+    frontend_origin = os.getenv("FRONTEND_APP_URL", "http://localhost:5173")
+    CORS(app, origins=[frontend_origin], supports_credentials=True)
 
     # Everyone add your blueprints here
     app.register_blueprint(auth_bp)

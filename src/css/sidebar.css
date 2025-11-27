@@ -42,11 +42,28 @@
 }
 
 .nav-btn:nth-child(4){
-  background-color: rgb(212, 63, 63);
   margin-top: 240%;
 }
-.nav-btn:nth-child(4):hover{
+
+.nav-btn:nth-child(4).auth-login {
+  background-color: #1db954;
+  border-color: #1db954;
+}
+
+.nav-btn:nth-child(4).auth-login:hover {
+  background-color: #1ed760;
+  border-color: #1ed760;
+}
+
+.nav-btn:nth-child(4).auth-logout {
+  background-color: rgb(212, 63, 63);
   border-color: rgb(212, 63, 63);
+  color: #ffffff;
+}
+
+.nav-btn:nth-child(4).auth-logout:hover {
+  background-color: rgb(235, 85, 85);
+  border-color: rgb(235, 85, 85);
 }
 
 .nav-btn:hover { 

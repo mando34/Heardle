@@ -1,5 +1,5 @@
 // src/components/sidebar.jsx
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import "../css/sidebar.css";
 import {
   MusicNoteIcon,
@@ -9,24 +9,12 @@ import {
   TrophyIcon,
 } from "./icons";
 import { useNavigate, useLocation } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 export default function Sidebar() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  // Check Spotify login status whenever the route changes
-  useEffect(() => {
-    const token = localStorage.getItem("spotify_access_token");
-    const expiresAtStr = localStorage.getItem("spotify_token_expires_at");
-    const expiresAt = expiresAtStr ? Number(expiresAtStr) : 0;
-
-    if (token && expiresAt && Date.now() < expiresAt) {
-      setLoggedIn(true);
-    } else {
-      setLoggedIn(false);
-    }
-  }, [location.pathname]);
+  const { user, logout } = useContext(AuthContext);
 
   const isActive = (path) => location.pathname === path;
 
@@ -35,31 +23,21 @@ export default function Sidebar() {
   };
 
   const handlePlay = () => {
-    // your game route from App.jsx
     navigate("/gameselection");
   };
 
   const handleLeaderboard = () => {
-    // your game route from App.jsx
-    navigate("/leaderboardPage");
-  };
-
-  const handleLeaderboard = () => {
-    // your game route from App.jsx
     navigate("/leaderboardPage");
   };
 
   const handleAuthClick = () => {
-    if (loggedIn) {
-      // 🔴 LOG OUT: clear tokens and go home
-      localStorage.removeItem("spotify_access_token");
-      localStorage.removeItem("spotify_refresh_token");
-      localStorage.removeItem("spotify_token_expires_at");
-      setLoggedIn(false);
-      navigate("/"); // back to homepage
+    if (user) {
+      // Logged in: logout
+      logout();
+      navigate("/");
     } else {
-      // 🟢 LOG IN: go to the same login page users see when starting the game
-      navigate("/spotifylogin");
+      // Not logged in: go to login page
+      navigate("/loginPage");
     }
   };
 
@@ -98,13 +76,14 @@ export default function Sidebar() {
         {/* Auth button (Login / Logout) */}
         <button
           className={`nav-btn auth-btn ${
-            loggedIn ? "auth-logout" : "auth-login"
+            user ? "auth-logout" : "auth-login"
           }`}
           onClick={handleAuthClick}
+          title={user ? `Logged in as ${user.email}` : "Not logged in"}
         >
           <LogoutIcon className="nav-icon" />
           <span className="nav-label">
-            {loggedIn ? "Logout" : "Login"}
+            {user ? "Logout" : "Login"}
           </span>
         </button>
       </nav>

@@ -124,5 +124,15 @@ def login():
     # Login Success
     return jsonify({
         "message": "Login successful",
-        "token": token
+        "token": token,
+        "user_id": user_id,
+        "email": email
     }), 200
+
+@auth_bp.post("/logout")
+def logout():
+    """
+    Logout endpoint. Frontend can call this to invalidate the session on the server.
+    The token stored in localStorage will be automatically cleared by the frontend.
+    """
+    return jsonify({"message": "Logged out successfully"}), 200
