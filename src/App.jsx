@@ -1,13 +1,13 @@
 import "./css/global.css";
-import HomePage from "./pages/homepage";
-import GamePage from "./pages/gamepage";
-import GameResults from "./pages/game-results";
+import HomePage from "./pages/homePage";
+import GamePage from "./pages/gamePage";
+import GameResults from "./pages/gameResultsPage";
 import LoginPage from './pages/loginPage';
 import CreateAcc from './pages/createAccPage';
-import ProfilePage from "./pages/profilepage";
+import ProfilePage from "./pages/profilePage";
 import Leaderboard from './pages/leaderboardPage';
-import SpotifyLogin from "./pages/spotifylogin";    
-import SpotifyCallback from "./pages/spotifycallback";
+import SpotifyLogin from "./pages/spotifyLogin";    
+import SpotifyCallback from "./pages/spotifyCallback";
 
 import {
   BrowserRouter as Router,
