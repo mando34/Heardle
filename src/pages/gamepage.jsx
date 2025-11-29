@@ -19,7 +19,7 @@ export default function GamePage() {
 
   const navigate = useNavigate();
 
-  // ✅ use the playlist that worked in DevTools
+  //  use the playlist that worked in DevTools
   const playlistId = "5Fyh5hwRzSQpefBEQkKS2D"; //https://open.spotify.com/playlist/3MSX420oh4ioV9oKp1JPT8?si=dbd1d5a73d0e481e
                                               //remove from https to playlist/ & ?si to the end
 
