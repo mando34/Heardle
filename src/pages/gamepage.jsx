@@ -7,6 +7,7 @@ import CustomAudioPlayer from "../components/customaudioplayer";
 import "../css/game.css";
 
 const BACKEND_URL = "http://127.0.0.1:8888";
+const GAMEBACKEND_URL = "http://127.0.0.1:8888";
 
 export default function GamePage() {
   const [score, setScore] = useState(0);
@@ -18,19 +19,63 @@ export default function GamePage() {
   const [accessToken, setAccessToken] = useState(null);
 
   const navigate = useNavigate();
-
+  const [currentSong, setCurrentSong] = useState("");
+  const [currentArtist, setCurrentArtist] = useState("");
+  const [currentFile, setCurrentFile] = useState("");
   // ✅ use the playlist that worked in DevTools
   const playlistId = "5Fyh5hwRzSQpefBEQkKS2D"; //https://open.spotify.com/playlist/3MSX420oh4ioV9oKp1JPT8?si=dbd1d5a73d0e481e
                                               //remove from https to playlist/ & ?si to the end
+
+
+  const startGame = useCallback(async() => {
+    try{
+      const res = await fetch(`${GAMEBACKEND_URL}/start`,{method:"GET"});//headers: {"Content-Type":"application/json"},body: JSON.stringify({difficulty:"normal",genre:"Rock"})});
+      console.log(res.status);
+      //console.log("test");
+      const data = await res.json();
+      //console.log("test2");
+      console.log("Started",data);
+      //setScore(data.score);
+      setCurrentSong(data.name);
+      setCurrentArtist(data.artist);
+      setCurrentFile(data.filename);
+      //setPreviewUrl(`/static/audio/${currentFile}`);
+      //setPreviewUrl(`${GAMEBACKEND_URL}/static/audio/${data.filename}`);
+    } catch(err) {
+      console.error("Cant start game:",err);
+    }
+  },[]);
+
+  //setPreviewUrl(`${GAMEBACKEND_URL}/song/${currentFile}`);  
+
 
   const guess = (event) => {
     setText(event.target.value);
   };
 
-  const submit = (event) => {
-    event.preventDefault();
-    setScore((prev) => prev + 1);
+  const submit = async(event) => {
+    event.preventDefault()  
+    try{
+      const res = await fetch(`${GAMEBACKEND_URL}/guess`,{method:"POST", headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+        filename: currentFile,
+        song_url: previewUrl,
+        guess: text,
+        attempt: 1,
+        }),
+      });
+      const result = await res.json();
+      console.log(text);
+      console.log("Guess result",result)
+
+    }catch(err) {
+      console.error("Cant guess:",err);
+    //setScore((prev) => prev + 1);
+    
+    }
   };
+  
+
 
   // ---- Helper: check token validity on mount ----
   useEffect(() => {
@@ -128,10 +173,13 @@ export default function GamePage() {
 
   // Fetch a track when we finally have a valid token
   useEffect(() => {
+    startGame();
+    
+
     if (accessToken) {
       fetchRandomTrack();
     }
-  }, [accessToken, fetchRandomTrack]);
+  }, [accessToken, fetchRandomTrack, startGame]);
 
   if (!accessToken) {
     return <p>Checking Spotify login...</p>;
@@ -150,6 +198,7 @@ export default function GamePage() {
               <h1 className="game-headline">
                 <span>Guess the Song</span>
               </h1>
+              <div>Current song: {currentSong}</div>
             </div>
             <div className="input-wrap">
                 <form onSubmit={submit}>
@@ -161,6 +210,7 @@ export default function GamePage() {
             <div className="game-score">
               <h1 className="game-headline">
                 <span>Score: {score}</span>
+                
               </h1>
             </div>
           </div>
@@ -201,4 +251,4 @@ export default function GamePage() {
       </main>
     </div>
   );
-}
+  }

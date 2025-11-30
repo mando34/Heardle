@@ -5,6 +5,7 @@ import os
 from src.backend.endpoints.auth import auth_bp
 from src.backend.endpoints.test import test_bp
 from src.backend.endpoints.spotify import spotify_bp
+from src.backend.endpoints.game import game_bp
 
 def create_app():
     app = Flask(__name__)
@@ -23,5 +24,6 @@ def create_app():
     app.register_blueprint(auth_bp)
     app.register_blueprint(test_bp)
     app.register_blueprint(spotify_bp)
+    app.register_blueprint(game_bp)
 
     return app
