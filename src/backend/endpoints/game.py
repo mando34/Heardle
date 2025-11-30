@@ -4,10 +4,9 @@ import os
 
 game_bp = Blueprint("game_bp", __name__)
 
-
+# current == C:/your_path/Heardle
 current = os.getcwd()
-audio_dir = r"\src\static\audio"
-path = os.path.join(current, audio_dir)
+path = os.path.join(current, "src", "static", "audio")
  
 
 @game_bp.get("/start")

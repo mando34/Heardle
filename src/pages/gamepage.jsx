@@ -39,6 +39,7 @@ export default function GamePage() {
       setCurrentSong(data.name);
       setCurrentArtist(data.artist);
       setCurrentFile(data.filename);
+      setPreviewUrl(`${GAMEBACKEND_URL}/song/${data.filename}`);
       //setPreviewUrl(`/static/audio/${currentFile}`);
       //setPreviewUrl(`${GAMEBACKEND_URL}/static/audio/${data.filename}`);
     } catch(err) {
@@ -158,8 +159,9 @@ export default function GamePage() {
 
       console.log("Chosen track:", track.name, track.preview_url);
 
-      setCurrentTrack(track);
-      setPreviewUrl(track.preview_url);
+      //setCurrentTrack(track); // commented out to avoid conflicts with game track
+      //setPreviewUrl(track.preview_url); // commented out to avoid conflicts with game track
+      console.log("Spotify preview fetched:", track.preview_url);
       setText("");
     } catch (err) {
       console.error(err);
