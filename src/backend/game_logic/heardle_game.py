@@ -5,11 +5,11 @@ class HeardleGame:
 
     def __init__(self):
         self.picker = SongPicker()
-        self.filename = None
-        self.url = None
+        self.filename = ""
+        self.url = ""
         self.hint_lengths = [1, 2, 4, 7, 11, 16]
-        self.song = None
-        self.artist = None
+        self.song = ""
+        self.artist = ""
 
     def start(self):
         result = self.picker.pick_song()
@@ -31,6 +31,7 @@ class HeardleGame:
     def load_existing(self, filename, url):
         self.filename = filename
         self.url = url
+        self.namesFix()
 
     def get_answer(self):
         pos = self.filename.rfind(".")
@@ -44,9 +45,12 @@ class HeardleGame:
 
     def evaluate(self, guess, attempt):
         answer = self.get_answer().lower()
+        song_title = self.song.lower()
         guess_clean = guess.strip().lower()
 
-        if guess_clean == answer:
+        print(f"Evaluating guess: '{guess_clean}' against answer: '{answer}' and song title: '{song_title}'")
+
+        if guess_clean == answer or guess_clean == song_title:
             return {
                 "correct": True,
                 "win": True,

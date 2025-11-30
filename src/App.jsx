@@ -1,7 +1,7 @@
 import "./css/global.css";
 import { AuthProvider } from "./context/AuthContext";
 import HomePage from "./pages/homePage";
-import GamePage from "./pages/gamePage";
+import GamePage from "./pages/gamepage";
 import GameResults from "./pages/gameResultsPage";
 import LoginPage from './pages/loginPage';
 import CreateAcc from './pages/createAccPage';

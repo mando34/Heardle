@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import "../css/customaudioplayer.css";
 
-export default function CustomAudioPlayer({ src }) {
+export default function CustomAudioPlayer({ src, snippet }) {
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -28,6 +28,7 @@ export default function CustomAudioPlayer({ src }) {
       audio.pause();
       setIsPlaying(false);
     } else {
+      audio.currentTime = 0;
       audio.play();
       setIsPlaying(true);
     }
@@ -42,8 +43,22 @@ export default function CustomAudioPlayer({ src }) {
   // Sync time + progress bar while playing
   const onTimeUpdate = () => {
     const audio = audioRef.current;
+
+    if (audio.currentTime >= snippet) {
+      audio.pause();
+      audio.currentTime = snippet;
+      setCurrentTime(snippet);
+      setProgress(100);
+      setIsPlaying(false);
+      return;
+    }
+
+
+
+
     setCurrentTime(audio.currentTime);
-    setProgress((audio.currentTime / audio.duration) * 100);
+    setProgress((audio.currentTime / snippet) * 100);
+    {/*setProgress((audio.currentTime / audio.duration) * 100);*/}
   };
 
   // Seek when clicking progress bar
@@ -61,6 +76,16 @@ export default function CustomAudioPlayer({ src }) {
     audio.volume = newVolume;
     setVolume(newVolume);
   };
+
+  // reset audio whenever src or snippet changes
+  useEffect(() => {
+    const audio = audioRef.current;
+    audio.pause();
+    audio.currentTime = 0;
+    setIsPlaying(false);
+    setProgress(0);
+    setCurrentTime(0);
+  }, [src, snippet]);
 
   return (
     <div className="custom-player">
@@ -97,7 +122,8 @@ export default function CustomAudioPlayer({ src }) {
           value={progress}
           onChange={handleProgressChange}
         />
-        <span>{formatTime(duration)}</span>
+        <span>{formatTime(snippet)}</span>
+        {/*<span>{formatTime(duration)}</span>*/}
       </div>
 
       {/* VOLUME SLIDER */}

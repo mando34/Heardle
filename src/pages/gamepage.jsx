@@ -17,6 +17,8 @@ export default function GamePage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [accessToken, setAccessToken] = useState(null);
+  const [attempt, setAttempt] = useState(1);
+  const [snippet, setSnippet] = useState(1); // initial snippet length in seconds
 
   const navigate = useNavigate();
   const [currentSong, setCurrentSong] = useState("");
@@ -62,12 +64,31 @@ export default function GamePage() {
         filename: currentFile,
         song_url: previewUrl,
         guess: text,
-        attempt: 1,
+        attempt: attempt,
         }),
       });
       const result = await res.json();
       console.log(text);
       console.log("Guess result",result)
+
+      if (result.win) {
+        console.log("Correct guess");
+        setScore((prev) => prev + 300); // increase score by 300 for correct guess
+        // navigate to results page
+        return;
+      }
+
+      if(result.lose){
+        console.log("Out of attempts");
+        // navigate to results page
+        return;
+      }
+
+      if(result.continue){
+        console.log("Incorrect guess");
+        setAttempt(result.next_attempt);  // go to next attempt
+        setSnippet(result.snippet_seconds); // update snippet lengths
+      }
 
     }catch(err) {
       console.error("Cant guess:",err);
@@ -246,7 +267,7 @@ export default function GamePage() {
               )}
             </div> */}
             <div className="now-playing-audio">
-              <CustomAudioPlayer src={previewUrl || undefined} />
+              <CustomAudioPlayer src={previewUrl || undefined} snippet={snippet} />
             </div>
           </section>
         </section>
