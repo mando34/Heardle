@@ -58,7 +58,27 @@ def createAccount():
         cur.execute("INSERT INTO Users (email, password) VALUES (?, ?)",
                     (email, hashed_password))
         
-        # Commiting changes
+        user_id = cur.lastrowid
+
+        # Creating Profile
+        cur.execute(
+            """
+            INSERT INTO PROFILE (U_ID, gametag, first_name, last_name, profile_picture)
+            VALUES (?, ?, ?, ?, ?)
+            """,
+            (user_id, "headless_user", "", "", "")
+        )
+
+        # Creating Stats
+        cur.execute(
+            """
+            INSERT INTO Stats (U_ID, total_games, wins, cumulative_score)
+            VALUES (?, ?, ?, ?)
+            """,
+            (user_id, 0, 0, 0)
+        )
+
+        # Commiting Changes
         db.commit()
     except sqlite3.Error as e:
         db.close()
@@ -136,3 +156,81 @@ def logout():
     The token stored in localStorage will be automatically cleared by the frontend.
     """
     return jsonify({"message": "Logged out successfully"}), 200
+
+@auth_bp.get("/getProfile")
+def get_profile():
+
+    # Use user ID given from page
+    user_id = request.args.get("user_id")
+
+    if not user_id:
+        return jsonify({"error": "Missing user_id"}), 400
+
+    # Connect to database file
+    db_path = os.path.join(os.getcwd(), "heardle.db")
+    db = sqlite3.connect(db_path)
+    db.row_factory = sqlite3.Row
+    cur = db.cursor()
+
+    # Join and return all 3 tables:
+    cur.execute("""
+        SELECT 
+            Users.U_ID,
+            Users.email,
+            Profile.gametag,
+            Profile.first_name,
+            Profile.last_name,
+            Profile.profile_picture,
+            Stats.total_games,
+            Stats.wins,
+            Stats.cumulative_score
+        FROM Users
+        LEFT JOIN Profile ON Users.U_ID = Profile.U_ID
+        LEFT JOIN Stats ON Users.U_ID = Stats.U_ID
+        WHERE Users.U_ID = ?
+    """, (user_id,))
+
+    row = cur.fetchone()
+    db.close()
+
+    if not row:
+        return jsonify({"error": "User not found"}), 404
+
+    return jsonify(dict(row))
+
+@auth_bp.post("/setProfile")
+def set_profile():
+
+    data = request.get_json()
+
+    # Use user ID given from page
+    user_id = request.args.get("user_id")
+
+    # Extract values from request
+    gametag = data.get("gametag")
+    first_name = data.get("first_name")
+    last_name = data.get("last_name")
+
+    if not user_id:
+        return jsonify({"error": "Missing user_id"}), 400
+
+    # Connect to database file
+    db_path = os.path.join(os.getcwd(), "heardle.db")
+    db = sqlite3.connect(db_path)
+    cur = db.cursor()
+
+    # Update Profile
+    try:
+        cur.execute("""
+            UPDATE Profile
+            SET gametag = ?, first_name = ?, last_name = ?
+            WHERE U_ID = ?
+        """, (gametag, first_name, last_name, user_id))
+
+        db.commit()
+    except sqlite3.Error as e:
+        db.close()
+        return jsonify({"error": str(e)}), 500
+
+    db.close()
+    return jsonify({"message": f"Profile ID {user_id} updated successfully"}), 200
