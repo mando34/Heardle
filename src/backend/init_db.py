@@ -44,6 +44,18 @@ def init_db():
             FOREIGN KEY (U_ID) REFERENCES Users(U_ID) ON DELETE CASCADE
         )
     """)
+        # Create Stats table
+    cur.execute("""
+    CREATE TABLE IF NOT EXISTS History (
+        H_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+        U_ID INTEGER,                     
+        difficulty TEXT,                        
+        genre TEXT,                       
+        result TEXT,                      
+        FOREIGN KEY (U_ID) REFERENCES Users(U_ID) ON DELETE CASCADE
+    )
+""")
+
     
     db.commit()
     db.close()
