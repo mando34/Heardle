@@ -12,6 +12,98 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
+@history_bp.route("", methods=["POST"])
+def add_history():
+    """
+    Record the result of a completed game and update Stats.
+
+    Expected JSON body:
+      {
+        "difficulty": "Normal",
+        "genre": "Mixed",
+        "result": "win" | "lose",
+        "score_delta": 300   # points earned this round
+      }
+
+    In a real app, U_ID should come from authentication (e.g., JWT).
+    For now, you can:
+      - use a fixed U_ID for testing, or
+      - extend this to read from auth_utils.require_auth
+    """
+    data = request.get_json(force=True) or {}
+
+    difficulty  = data.get("difficulty") or ""
+    genre       = data.get("genre") or ""
+    result      = data.get("result")    # "win" or "lose"
+    score_delta = data.get("score_delta", 0)
+
+    if result not in ("win", "lose"):
+        return jsonify({"error": "result must be 'win' or 'lose'"}), 400
+
+    # TODO: in a real implementation, derive U_ID from auth token.
+    # For now you can hard-code or pass it from frontend if needed.
+    uid = data.get("uid", 1)  # ⚠️ TEMP: default to user 1
+
+    conn = get_db_connection()
+    cur  = conn.cursor()
+
+    try:
+        # Insert into History
+        cur.execute(
+            """
+            INSERT INTO History (U_ID, difficulty, genre, result)
+            VALUES (?, ?, ?, ?)
+            """,
+            (uid, difficulty, genre, result),
+        )
+
+        # Update Stats (or insert if missing)
+        cur.execute(
+            """
+            SELECT total_games, wins, cumulative_score
+            FROM Stats
+            WHERE U_ID = ?
+            """,
+            (uid,),
+        )
+        row = cur.fetchone()
+
+        if row:
+            total_games = (row["total_games"] or 0) + 1
+            wins        = (row["wins"] or 0) + (1 if result == "win" else 0)
+            cumulative  = (row["cumulative_score"] or 0) + score_delta
+
+            cur.execute(
+                """
+                UPDATE Stats
+                SET total_games = ?, wins = ?, cumulative_score = ?
+                WHERE U_ID = ?
+                """,
+                (total_games, wins, cumulative, uid),
+            )
+        else:
+            # No stats row yet, create one
+            cur.execute(
+                """
+                INSERT INTO Stats (U_ID, total_games, wins, cumulative_score)
+                VALUES (?, ?, ?, ?)
+                """,
+                (uid, 1, 1 if result == "win" else 0, score_delta),
+            )
+
+        conn.commit()
+
+    except sqlite3.OperationalError as e:
+        print("History insert/update error:", repr(e))
+        conn.rollback()
+        return jsonify({"error": "Database error while recording history"}), 500
+
+    finally:
+        conn.close()
+
+    return jsonify({"ok": True}), 201
+
+
 
 @history_bp.route("", methods=["GET"])
 def get_history():

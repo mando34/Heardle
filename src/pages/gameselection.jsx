@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/sidebar";
 import Topbar from "../components/topbar";
-import CustomAudioPlayer from "../components/customaudioplayer";
 import "../css/selection.css";
 
 //auth_bp = Blueprint("game_selection",__name__) ADD LATER
@@ -35,12 +34,12 @@ export default function SelectionPage() {
                 
                 <section className="select-section">
                     <div className="select-wrap">
-                    <div>
-                    <h1 className="select-headline">
-                    <span>Select game settings</span>
-                    </h1>
-                    </div>
-                    <div className="selection-group">
+                        <div>
+                            <h1 className="select-headline">
+                                <span>Select game settings</span>
+                            </h1>
+                        </div>
+                        <div className="selection-group">
                             <select value={difficultyOption} 
                                 onChange={handleDifficulty}
                                 className="selection-dropdown">
@@ -49,9 +48,9 @@ export default function SelectionPage() {
                                 <option value="2">Normal</option>
                                 <option value="3">Hard</option>
                             </select>
-                    </div>
+                        </div>
 
-                    <div className="selection-group">
+                        <div className="selection-group">
                             <select value={genreOption} 
                                 onChange={handleGenre}
                                 className="selection-dropdown">
@@ -65,31 +64,12 @@ export default function SelectionPage() {
                                 <option value="7">Indie</option>
                                 <option value="8">Classic hits</option>
                             </select>
-                    </div>
+                        </div>
                     <button className="btn select-btn-primary play" onClick={handlePlay}>Play Game</button>   
-                    <div className="input-wrap">
-
                     </div>
-
-                    </div>
-                    
-
-                    
                 </section>
-
-
-
             </main>
         </div>
 
     );
-
-    <button
-        className={`nav-btn ${isActive("/gamepage") ? "active" : ""}`}
-        onClick={handlePlay}
-        >
-        <PlayIcon className="nav-icon" />
-        <span className="nav-label">Play</span>
-    </button>
-
 }

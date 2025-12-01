@@ -103,6 +103,25 @@
     background: #12121a; 
 }
 
+.guess-feedback {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.guess-feedback.correct {
+  color: #22c55e;
+}
+
+.guess-feedback.wrong {
+  color: #ef4444;
+}
+
+.guess-feedback.info {
+  color: #eab308;
+}
+
+
 /* Responsive */
 @media (max-width: 920px) {
   .app-root { grid-template-columns: 80px 1fr; }

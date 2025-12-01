@@ -7,8 +7,6 @@ from src.backend.endpoints.test import test_bp
 from src.backend.endpoints.spotify import spotify_bp
 from src.backend.endpoints.leaderboard import leaderboard_bp
 from src.backend.endpoints.history import history_bp
-
-
 from src.backend.endpoints.game import game_bp
 
 def create_app():
