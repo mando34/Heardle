@@ -9,6 +9,7 @@ from src.backend.endpoints.leaderboard import leaderboard_bp
 from src.backend.endpoints.history import history_bp
 
 
+from src.backend.endpoints.game import game_bp
 
 def create_app():
     app = Flask(__name__)
@@ -26,5 +27,6 @@ def create_app():
     app.register_blueprint(spotify_bp)
     app.register_blueprint(leaderboard_bp)   
     app.register_blueprint(history_bp)
+    app.register_blueprint(game_bp)
 
     return app
