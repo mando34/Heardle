@@ -1,0 +1,60 @@
+/* Profile info */
+.profile-info {
+  flex-direction: column;
+  margin: 16px 0;
+}
+
+/* Profile info text */
+.profile-text {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 4px;
+}
+
+.profile-label {
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+  color: #444;
+  font-weight: 500;
+}
+
+/* Profile input */
+.profile-input {
+  width: 100%;
+  flex-direction:column;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #3A3550;
+  background: #26213A;
+  color: #fff8e9;
+  outline: none;
+  transition: border 0.2s ease, background 0.2s ease;
+}
+
+.cta-grid {
+  display: flex;
+  gap: 16px;         
+  align-items: flex-start;
+}
+
+.cta-cell {
+  flex: 1;           
+}
+
+.apply-btn{
+    background: linear-gradient(135deg, green, rgba(0,213,0,.5)); 
+    border-color: #3a3960; 
+}
+.apply-btn:hover { 
+    background-color: #007200;
+    border-color: white;
+}
+
+.stats-btn{
+    background: linear-gradient(135deg, rgba(189,164,255,.25), rgba(154,213,255,.2)); 
+    border-color: #3a3960; 
+}
+.stats-btn:hover { 
+    background-color: #545386; 
+    border-color: #ffffff; 
+}
