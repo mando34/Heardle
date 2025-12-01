@@ -5,7 +5,7 @@ import Topbar from "../components/topbar";
 import "../css/leaderboard.css";
 import { AuthContext } from "../context/AuthContext";
 
-const API_BASE = import.meta.env.VITE_API_BASE || "http://127.0.0.1:5000";
+const API_BASE = import.meta.env.VITE_API_BASE || "http://127.0.0.1:8888";
 
 export default function LeaderboardPage() {
   const [players, setPlayers] = useState([]);

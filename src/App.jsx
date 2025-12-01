@@ -1,5 +1,5 @@
 import "./css/global.css";
-import { AuthProvider } from "./context/AuthContext";
+  import { AuthProvider } from "./context/AuthContext";
 import HomePage from "./pages/homePage";
 import GamePage from "./pages/gamePage";
 import GameResults from "./pages/gameResultsPage";

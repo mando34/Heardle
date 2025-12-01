@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 
-const API_BASE = import.meta.env.VITE_API_BASE || 'http://127.0.0.1:5000'; // use Vite env or fallback to backend
+const API_BASE = import.meta.env.VITE_API_BASE || 'http://127.0.0.1:8888'; // use Vite env or fallback to backend
 
 export default function LoginPage() {
   const navigate = useNavigate();
