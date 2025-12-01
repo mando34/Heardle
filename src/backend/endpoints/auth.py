@@ -58,7 +58,27 @@ def createAccount():
         cur.execute("INSERT INTO Users (email, password) VALUES (?, ?)",
                     (email, hashed_password))
         
-        # Commiting changes
+        user_id = cur.lastrowid
+
+        # Creating Profile
+        cur.execute(
+            """
+            INSERT INTO PROFILE (U_ID, gametag, first_name, last_name, profile_picture)
+            VALUES (?, ?, ?, ?, ?)
+            """,
+            (user_id, "headless_user", "", "", "")
+        )
+
+        # Creating Stats
+        cur.execute(
+            """
+            INSERT INTO Stats (U_ID, total_games, wins, cumulative_score)
+            VALUES (?, ?, ?, ?)
+            """,
+            (user_id, 0, 0, 0)
+        )
+
+        # Commiting Changes
         db.commit()
     except sqlite3.Error as e:
         db.close()
